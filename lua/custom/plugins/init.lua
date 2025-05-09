@@ -4,6 +4,7 @@
 -- See the kickstart.nvim README for more information
 return {
   { 'jay-babu/mason-nvim-dap.nvim' },
+  { 'sitiom/nvim-numbertoggle' },
   {
     'mfussenegger/nvim-dap',
     event = 'VeryLazy',
