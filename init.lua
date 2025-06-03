@@ -1,4 +1,4 @@
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+-- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -75,9 +75,6 @@ vim.opt.scrolloff = 10
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>ql', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix [L]ist' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -226,11 +223,10 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ocument' },
+        { '<leader>o', group = 'D[o]cument' },
         { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader>s', group = '[S]earch' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -418,7 +414,7 @@ require('lazy').setup({
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = '[L]SP: ' .. desc })
           end
 
           -- Jump to the definition of the word under your cursor.
@@ -436,7 +432,7 @@ require('lazy').setup({
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('<leader>l', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
@@ -887,7 +883,7 @@ local dap_virtual_text = require 'nvim-dap-virtual-text'
 dap_virtual_text.setup()
 
 mason_dap.setup {
-  ensure_installed = { 'cppdbg' },
+  ensure_installed = { 'cppdbg', 'debugpy' },
   automatic_installation = true,
   handlers = {
     function(config)
@@ -920,6 +916,24 @@ dap.configurations = {
       cwd = '${workspaceFolder}',
       program = function()
         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+    },
+  },
+  python = {
+    {
+      name = 'Launch file',
+      type = 'python',
+      request = 'launch',
+      program = '${file}',
+      pythonPath = function()
+        local cwd = vim.fn.getcwd()
+        if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+          return cwd .. '/venv/bin/python'
+        elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+          return cwd .. '/.venv/bin/python'
+        else
+          return '/usr/bin/python'
+        end
       end,
     },
   },
@@ -1048,12 +1062,45 @@ dap.listeners.before.event_exited.dapui_config = function()
   ui.close()
 end
 
--- Diagnotics configuration
-
-vim.api.nvim_set_keymap('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
+wk.add {
+  {
+    '<leader>q',
+    group = '[Q]uick Diagnostics',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>qo',
+    '<cmd>lua vim.diagnostic.open_float()<cr>',
+    desc = '[O]pen Float',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>q[',
+    '<cmd>lua vim.diagnostic.goto_prev()<CR>',
+    desc = 'Diagnostic Prev',
+    nowait = true,
+    remap = false,
+    silent = true,
+  },
+  {
+    '<leader>q]',
+    '<cmd>lua vim.diagnostic.goto_next()<CR>',
+    desc = 'Diagnostic Next',
+    nowait = true,
+    remap = false,
+    silent = true,
+  },
+  {
+    '<leader>qt',
+    '<cmd>Telescope diagnostics<CR>',
+    desc = '[T]elescope Diagnostics',
+    nowait = true,
+    remap = false,
+    silent = true,
+  },
+}
 
 vim.diagnostic.config {
   virtual_text = {
