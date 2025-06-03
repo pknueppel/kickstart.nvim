@@ -1,5 +1,3 @@
--- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -79,7 +77,7 @@ vim.opt.scrolloff = 10
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>ql', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix [L]ist' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -880,9 +878,6 @@ require('lazy').setup({
   },
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
-
 local mason_dap = require 'mason-nvim-dap'
 local dap = require 'dap'
 local ui = require 'dapui'
@@ -930,11 +925,115 @@ dap.configurations = {
   },
 }
 
+local wk = require 'which-key'
+-- WhichKey Keymaps
+wk.add {
+  -- Debugger
+  {
+    '<leader>d',
+    group = 'Debugger',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>dt',
+    function()
+      require('dap').toggle_breakpoint()
+    end,
+    desc = 'Toggle Breakpoint',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>dc',
+    function()
+      require('dap').continue()
+    end,
+    desc = 'Continue',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>di',
+    function()
+      require('dap').step_into()
+    end,
+    desc = 'Step Into',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>do',
+    function()
+      require('dap').step_over()
+    end,
+    desc = 'Step Over',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>du',
+    function()
+      require('dap').step_out()
+    end,
+    desc = 'Step Out',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>dr',
+    function()
+      require('dap').repl.open()
+    end,
+    desc = 'Open REPL',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>dl',
+    function()
+      require('dap').run_last()
+    end,
+    desc = 'Run Last',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>dq',
+    function()
+      require('dap').terminate()
+      require('dapui').close()
+      require('nvim-dap-virtual-text').toggle()
+    end,
+    desc = 'Terminate',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>db',
+    function()
+      require('dap').list_breakpoints()
+    end,
+    desc = 'List Breakpoints',
+    nowait = true,
+    remap = false,
+  },
+  {
+    '<leader>de',
+    function()
+      require('dap').set_exception_breakpoints { 'all' }
+    end,
+    desc = 'Set Exception Breakpoints',
+    nowait = true,
+    remap = false,
+  },
+}
+
 -- Dap UI
 
 ui.setup()
 
-vim.fn.sign_define('DapBreakpoint', { text = '🐞' })
+vim.fn.sign_define('DapBreakpoint', { text = '●' })
 
 dap.listeners.before.attach.dapui_config = function()
   ui.open()
@@ -948,3 +1047,21 @@ end
 dap.listeners.before.event_exited.dapui_config = function()
   ui.close()
 end
+
+-- Diagnotics configuration
+
+vim.api.nvim_set_keymap('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
+
+vim.diagnostic.config {
+  virtual_text = {
+    -- source = "always",  -- Or "if_many"
+    prefix = '●', -- Could be '■', '▎', 'x'
+  },
+  severity_sort = true,
+  float = {
+    source = 'always', -- Or "if_many"
+  },
+}
