@@ -22,6 +22,10 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Define tabs as 8 spaces
+vim.opt['tabstop'] = 8
+vim.opt['shiftwidth'] = 8
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -697,7 +701,7 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<S-CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -1111,4 +1115,8 @@ vim.diagnostic.config {
   float = {
     source = 'always', -- Or "if_many"
   },
+}
+
+require('lspconfig').qmlls.setup {
+  cmd = { 'qmlls', '-E' },
 }
