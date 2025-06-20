@@ -1116,7 +1116,3 @@ vim.diagnostic.config {
     source = 'always', -- Or "if_many"
   },
 }
-
-require('lspconfig').qmlls.setup {
-  cmd = { 'qmlls', '-E' },
-}
