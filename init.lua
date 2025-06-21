@@ -23,8 +23,8 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 -- Define tabs as 8 spaces
-vim.opt['tabstop'] = 8
-vim.opt['shiftwidth'] = 8
+vim.opt['tabstop'] = 4
+vim.opt['shiftwidth'] = 4
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
