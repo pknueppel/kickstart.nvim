@@ -954,7 +954,7 @@ wk.add {
     remap = false,
   },
   {
-    '<leader>dt',
+    '<F9>',
     function()
       require('dap').toggle_breakpoint()
     end,
@@ -963,7 +963,7 @@ wk.add {
     remap = false,
   },
   {
-    '<leader>dc',
+    '<F5>',
     function()
       require('dap').continue()
     end,
@@ -972,7 +972,7 @@ wk.add {
     remap = false,
   },
   {
-    '<leader>di',
+    '<F11>',
     function()
       require('dap').step_into()
     end,
@@ -981,7 +981,7 @@ wk.add {
     remap = false,
   },
   {
-    '<leader>do',
+    '<F10>',
     function()
       require('dap').step_over()
     end,
@@ -990,7 +990,7 @@ wk.add {
     remap = false,
   },
   {
-    '<leader>du',
+    '<S-F11>',
     function()
       require('dap').step_out()
     end,
@@ -1017,7 +1017,7 @@ wk.add {
     remap = false,
   },
   {
-    '<leader>dq',
+    '<S-F5>',
     function()
       require('dap').terminate()
       require('dapui').close()
