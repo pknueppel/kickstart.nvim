@@ -896,33 +896,29 @@ mason_dap.setup {
   },
 }
 
+dap.adapters = {
+  codelldb = {
+    type = 'server',
+    port = '${port}',
+    executable = {
+      command = 'codelldb',
+      args = { '--port', '${port}' },
+    },
+  },
+}
+
 -- Configurations
 dap.configurations = {
   c = {
-    {
-      name = 'Launch file',
-      type = 'cppdbg',
-      request = 'launch',
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      end,
-      cwd = '${workspaceFolder}',
-      stopAtEntry = false,
-      MIMode = 'lldb',
-    },
-    {
-      name = 'Attach to lldbserver :1234',
-      type = 'cppdbg',
-      request = 'launch',
-      MIMode = 'lldb',
-      miDebuggerServerAddress = 'localhost:1234',
-      miDebuggerPath = '/usr/bin/lldb',
-      cwd = '${workspaceFolder}',
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      end,
-    },
+    name = 'Launch',
+    type = 'codelldb',
+    request = 'launch',
+    program = '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}',
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
   },
+  cpp = dap.configurations.c,
   python = {
     {
       name = 'Launch file',
