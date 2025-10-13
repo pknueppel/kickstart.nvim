@@ -910,7 +910,7 @@ dap.adapters = {
 -- Configurations
 dap.configurations = {
   c = {
-    name = 'Launch',
+    name = 'Build and Launch File',
     type = 'codelldb',
     request = 'launch',
     program = '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}',
