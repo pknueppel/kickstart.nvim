@@ -343,7 +343,7 @@ require('lazy').setup {
 								callSnippet = 'Replace',
 							},
 							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { 'missing-fields' } },
+							diagnostics = { disable = { 'missing-fields' } },
 						},
 					},
 				},
@@ -362,6 +362,7 @@ require('lazy').setup {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				'stylua', -- Used to format Lua code
+				'ast-grep',
 			})
 			require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -420,8 +421,8 @@ require('lazy').setup {
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				javascript = { 'prettierd', 'prettier', stop_after_first = true },
 				json = { 'fixjson' },
-				c = { 'ast-grep' },
-				cpp = { 'ast_grep' },
+				c = { 'clang-format' },
+				cpp = { 'clang-format' },
 			},
 		},
 	},

@@ -9,8 +9,8 @@ return {
 				markdown = { 'markdownlint', 'vale' },
 				dockerfile = { 'hadolint' },
 				json = { 'jsonlint' },
-				c = { 'ast-grep' },
-				cpp = lint.linters_by_ft.c,
+				cpp = { 'clangtidy' },
+				c = { 'clangtidy' },
 				python = { 'python' },
 			}
 
