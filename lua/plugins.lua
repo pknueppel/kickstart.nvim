@@ -79,10 +79,15 @@ require('lazy').setup {
 			spec = {
 				{ '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
 				{ '<leader>o', group = 'D[o]cument' },
-				{ '<leader>r', group = '[R]ename' },
 				{ '<leader>t', group = '[T]oggle' },
 				{ '<leader>s', group = '[S]earch' },
 				{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+				{ '<leader>l', group = '[L]SP' },
+				{ 'g', group = '[G]oto' },
+				{ 's', group = '[S]urrounding' },
+				{ '[', group = 'Previous' },
+				{ ']', group = 'Next' },
+				{ 'W', group = '[W]indow' },
 			},
 		},
 	},
@@ -237,23 +242,26 @@ require('lazy').setup {
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map('<leader>l', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+					map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[T]ype Definition')
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
-					map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+					map('<leader>ld', require('telescope.builtin').lsp_document_symbols, '[D]ocument Symbols')
 
 					-- Fuzzy find all the symbols in your current workspace.
 					--  Similar to document symbols, except searches over your entire project.
-					map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+					map('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace Symbols')
 
 					-- Rename the variable under your cursor.
 					--  Most Language Servers support renaming across files, etc.
-					map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+					map('<leader>lr', vim.lsp.buf.rename, '[R]ename')
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
 					map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+
+					-- Shows function definition
+					map('<leader>lh', vim.lsp.buf.hover, '[H]over', { 'n', 'x' })
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
@@ -294,7 +302,7 @@ require('lazy').setup {
 					-- This may be unwanted, since they displace some of your code
 					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
 						map('<leader>th', function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+							vim.lsp.inlay_hint.enable(vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
 						end, '[T]oggle Inlay [H]ints')
 					end
 				end,
