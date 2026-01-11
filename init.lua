@@ -2,7 +2,7 @@
 --
 -- Imports all requisite files
 
-require("settings")
-require("keymaps")
-require("autocommands")
-require("plugins")
+require 'settings'
+require 'keymaps'
+require 'autocommands'
+require 'plugins'

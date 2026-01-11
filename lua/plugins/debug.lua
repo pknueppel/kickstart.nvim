@@ -95,7 +95,6 @@ return {
 				-- Update this to ensure that you have the debuggers for the langs you want
 				'cppdbg',
 				'debugpy',
-				'codelldb',
 			},
 		}
 
@@ -123,7 +122,7 @@ return {
 		vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
 		vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
 		local breakpoint_icons = vim.g.have_nerd_font
-				and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
+			and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
 			or { Breakpoint = 'B', BreakpointCondition = 'B+', BreakpointRejected = 'B-', LogPoint = 'L', Stopped = 'S' }
 		for type, icon in pairs(breakpoint_icons) do
 			local tp = 'Dap' .. type
