@@ -10,7 +10,7 @@ return {
 	opts = {
 		icons = {
 			-- set icon mappings to true if you have a Nerd Font
-			mappings = vim.g.have__font,
+			mappings = vim.g.have_font,
 			separator = '',
 			-- If you are using a Nerd Font: set icons.keys to an empty table which will use the
 			-- default which-key.nvim defined Nerd Font icons, otherwise define a string table

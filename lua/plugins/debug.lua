@@ -46,11 +46,25 @@ return {
 			desc = 'Debug: Step Over',
 		},
 		{
-			'<S-F11>',
+			'<A-S-F11>',
 			function()
 				require('dap').step_out()
 			end,
 			desc = 'Debug: Step Out',
+		},
+		{
+			'<A-S-F9>',
+			function()
+				local condition = vim.fn.input 'Breakpoint condition (optional): '
+				local hit_condition = vim.fn.input 'Hit count (optional): '
+
+				-- Convert empty strings to nil
+				condition = condition ~= '' and condition or nil
+				hit_condition = hit_condition ~= '' and hit_condition or nil
+
+				require('dap').toggle_breakpoint(condition, hit_condition)
+			end,
+			desc = 'Debug: Set Condtional Breakpoint',
 		},
 		{
 			'<F9>',
@@ -58,13 +72,6 @@ return {
 				require('dap').toggle_breakpoint()
 			end,
 			desc = 'Debug: Set Breakpoint',
-		},
-		{
-			'<S-F9>',
-			function()
-				require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-			end,
-			desc = 'Debug: Set Conditional Breakpoint',
 		},
 		-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 		{
@@ -104,6 +111,7 @@ return {
 		-- For more information, see |:help nvim-dap-ui|
 		dapui.setup {
 			controls = {
+				enabled = vim.g.have_font,
 				icons = {
 					pause = '',
 					play = '',
@@ -122,7 +130,7 @@ return {
 		vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
 		vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
 		local breakpoint_icons = vim.g.have_nerd_font
-			and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
+				and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
 			or { Breakpoint = 'B', BreakpointCondition = 'B+', BreakpointRejected = 'B-', LogPoint = 'L', Stopped = 'S' }
 		for type, icon in pairs(breakpoint_icons) do
 			local tp = 'Dap' .. type

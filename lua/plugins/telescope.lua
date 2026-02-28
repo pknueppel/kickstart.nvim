@@ -24,7 +24,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		{ 'nvim-telescope/telescope-ui-select.nvim' },
 
 		-- Useful for getting pretty icons, but requires aNerd Font.
-		{ 'nvim-tree/nvim-web-devicons', enabled = vim.g.have__font },
+		{ 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_font },
 	},
 	config = function()
 		-- [[ Configure Telescope ]]

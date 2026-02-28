@@ -22,7 +22,7 @@ require('lazy').setup {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-		icons = vim.g.have__font and {} or {
+		icons = vim.g.have_font and {} or {
 			cmd = '⌘',
 			config = '',
 			event = '',
@@ -86,4 +86,13 @@ require('lazy').setup {
 
 	-- Highlight, edit, and navigate code
 	require 'plugins.treesitter',
+
+	-- VSCode like winbar
+	require 'plugins.barbecue',
+
+	-- Statusline
+	require 'plugins.nvim-hardline',
+
+	-- Colorscheme
+	require 'plugins.colorschemes',
 }

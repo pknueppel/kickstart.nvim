@@ -13,7 +13,9 @@ return {
 		--  - ci'  - [C]hange [I]nside [']quote
 		require('mini.ai').setup { n_lines = 500 }
 
-		require('mini.icons').setup()
+		if vim.g.have_font then
+			require('mini.icons').setup()
+		end
 
 		-- Add/delete/replace surroundings (brackets, quotes, etc.)
 		--
@@ -27,7 +29,7 @@ return {
 		--  and try some other statusline plugin
 		local statusline = require 'mini.statusline'
 		-- set use_icons to true if you have a Nerd Font
-		statusline.setup { use_icons = vim.g.have__font }
+		statusline.setup { use_icons = vim.g.have_font }
 
 		-- You can configure sections in the statusline by overriding their
 		-- default behavior. For example, here we set the section for

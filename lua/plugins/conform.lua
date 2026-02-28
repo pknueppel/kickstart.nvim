@@ -44,6 +44,7 @@ return {
 			json = { 'fixjson' },
 			c = { 'clang-format' },
 			cpp = { 'clang-format' },
+			markdown = { 'markdownlint' },
 		},
 	},
 }
