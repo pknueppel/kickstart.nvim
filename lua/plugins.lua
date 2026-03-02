@@ -91,7 +91,7 @@ require('lazy').setup {
 	require 'plugins.barbecue',
 
 	-- Statusline
-	require 'plugins.nvim-hardline',
+	require 'plugins.lualine',
 
 	-- Colorscheme
 	require 'plugins.colorschemes',
