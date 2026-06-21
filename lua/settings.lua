@@ -20,17 +20,17 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 -- vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
-
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
 -- Define tabs as 4 spaces
-vim.opt['tabstop'] = 4
-vim.opt['shiftwidth'] = 4
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 
-vim.opt.foldmethod = 'indent'
+vim.opt.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldlevel = 1
+vim.opt.foldclose = 'all'
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -42,6 +42,11 @@ end)
 
 -- Enable break indent
 vim.opt.breakindent = true
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.smarttab = true
+vim.opt.smartindent = true
+vim.opt.cindent = true
 
 -- Save undo history
 vim.opt.undofile = true
@@ -72,3 +77,14 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 20
+
+-- for checkhealth
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- Windows
+vim.o.winborder = 'rounded'
+
+-- Colorscheme
+vim.cmd.colorscheme 'catppuccin'

@@ -45,20 +45,17 @@ require('lazy').setup {
 	-- Switches line number when in normal/visual mode
 	'sitiom/nvim-numbertoggle',
 
+	-- Tresitter
+	require 'plugins.treesitter',
+
+	-- Telescope
+	require 'plugins.telescope',
+
 	-- Automatically pairs braces/brackets
 	require 'plugins.autopairs',
 
 	-- Implements a debugger
 	require 'plugins.debug',
-
-	-- Implements a linter
-	require 'plugins.lint',
-
-	-- Automatically indents a line
-	require 'plugins.indent_line',
-
-	-- Implements a file tree
-	require 'plugins.neo-tree',
 
 	-- Implements gitsigns in the gutter
 	require 'plugins.gitsigns',
@@ -66,33 +63,27 @@ require('lazy').setup {
 	-- Shows keybinds
 	require 'plugins.which-key',
 
-	-- Implements a fuzzy finder
-	require 'plugins.telescope',
-
-	-- implements a lsp
-	require 'plugins.lsp',
-
-	-- Adds autoformat
-	require 'plugins.conform',
-
 	-- Adds autocomplete
 	require 'plugins.nvim-cmp',
-
-	-- Adds highlights to certain notes
-	require 'plugins.todo-comments',
 
 	-- Implements small independent plugins/modules
 	require 'plugins.mini',
 
-	-- Highlight, edit, and navigate code
-	require 'plugins.treesitter',
-
 	-- VSCode like winbar
 	require 'plugins.barbecue',
 
-	-- Statusline
-	require 'plugins.lualine',
+	-- Diagflow
+	require 'plugins.diagflow',
 
-	-- Colorscheme
-	require 'plugins.colorschemes',
+	-- LSP manager
+	require 'plugins.mason',
+
+	-- File manager
+	require 'plugins.neo-tree',
+
+	-- C3 plugin
+	require 'plugins.c3',
+
+	-- Latex
+	require 'plugins.vimtext',
 }

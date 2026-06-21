@@ -3,8 +3,11 @@
 -- Adds smaller plugins/modules
 
 return {
-	'echasnovski/mini.nvim',
+	'nvim-mini/mini.nvim',
 	config = function()
+		-- Start screen
+		require('mini.starter').setup()
+
 		-- Better Around/Inside textobjects
 		--
 		-- Examples:
@@ -39,7 +42,34 @@ return {
 			return '%2l:%-2v'
 		end
 
-		-- ... and there is more!
-		--  Check out: https://github.com/echasnovski/mini.nvim
+		-- A tabline showing open buffers
+		require('mini.tabline').setup()
+
+		-- Better commenting tools
+		require('mini.comment').setup()
+
+		-- Snippets
+		require('mini.snippets').setup()
+
+		-- Better completion
+		require('mini.completion').setup()
+
+		-- Autopairs
+		require('mini.pairs').setup()
+
+		-- Include math operators
+		require('mini.operators').setup()
+
+		-- Session management
+		require('mini.sessions').setup()
+
+		-- Indentscope
+		require('mini.indentscope').setup()
+
+		-- Highlight certain patterns in text
+		require('mini.hipatterns').setup()
+
+		-- Picker
+		require('mini.pick').setup()
 	end,
 }
